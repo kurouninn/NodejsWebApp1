@@ -1,0 +1,24 @@
+﻿<html>
+<head>
+    <meta charset="utf-8">
+    <title>HTTP Live Streaming</title>
+    <script src="https://cdn.jsdelivr.net/hls.js/latest/hls.min.js"></script>
+</head>
+<body>
+    <div>
+        <video id="live" controls="controls" muted autoplay />
+    </div>
+    <script>
+        if (Hls.isSupported()) {
+            var video = document.getElementById('live');
+            var hls = new Hls();
+            hls.loadSource('./live/output.m3u8');
+            hls.attachMedia(live);
+            hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                video.play();
+            });
+        }
+    </script>
+    <input id="Button1" type="button" value="button" />
+</body>
+</html>
