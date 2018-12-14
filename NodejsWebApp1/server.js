@@ -5,6 +5,7 @@ var exec = require('child_process').exec;
 var child = null;
 var port = process.env.PORT || 1337;
 var html = null;
+var gpio = {r=0, g=0, b=0};
 
 html = fs.readFileSync('index.html', 'utf8');
 
@@ -23,11 +24,12 @@ http.createServer(function (req, res) {
         req.on('data', function (chunk) {
             var data = '' + chunk;
             var d = data.split('=');
-            console.log(d[0]);
-            child = exec('ls', (err, stdout, stderr) => {
-                console.log('stdo' + stdout + '\n');
-                console.log('stde' + stderr + '\n');
-            });
+            led(d);
+            //console.log(d[0]);
+            //child = exec('ls', (err, stdout, stderr) => {
+            //    console.log('stdo' + stdout + '\n');
+            //    console.log('stde' + stderr + '\n');
+            //});
 
             //rpio.write(pin0, rpio.HIGH);
             //rpio.write(pin0, rpio.LOW);
@@ -49,23 +51,29 @@ http.createServer(function (req, res) {
 
 function led(led) {
     if (led == 'blue') {
-        if (child != null) child.kill('SIGHUP');
+        console.log('b\n');
+        if (child != null) child.kill('SIGKILL');
         child = null;
-        child = exec('./test1 1', (err, stdout, stderr) => { });
+        child = exec('./test1 1 ' + gpio.b, (err, stdout, stderr) => { });
+        gpio.b = 1 - gpio.b;
     } else if (led == 'red') {
-        if (child != null) child.kill('SIGHUP');
+        console.log('r\n');
+        if (child != null) child.kill('SIGKILL');
         child = null;
-        exec('./test1 2', (err, stdout, stderr) => { });
+        child = exec('./test1 2 ' + gpio.r, (err, stdout, stderr) => { });
+        gpio.r = 1 - gpio.r;
     } else if (led == 'green') {
-        if (child != null) child.kill('SIGHUP');
+        console.log('g\n');
+        if (child != null) child.kill('SIGKILL');
         child = null;
-        exec('./test1 3', (err, stdout, stderr) => { });
+        child = exec('./test1 3 ' + gpio.g, (err, stdout, stderr) => { });
+        gpio.g = 1 - gpio.g;
     } else if (led == 'blink') {
-        if (child != null) child.kill('SIGHUP');
+        if (child != null) child.kill('SIGKILL');
         child = null;
         exec('./test1 4', (err, stdout, stderr) => { });
     } else if (led == 'fade') {
-        if (child != null) child.kill('SIGHUP');
+        if (child != null) child.kill('SIGKILL');
         child = null;
         exec('./test1 5', (err, stdout, stderr) => { });
     }
