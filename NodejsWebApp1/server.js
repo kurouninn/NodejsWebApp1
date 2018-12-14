@@ -24,7 +24,8 @@ http.createServer(function (req, res) {
         req.on('data', function (chunk) {
             var data = '' + chunk;
             var d = data.split('=');
-            led(d);
+            console.log(d[0]);
+            led(d[0]);
             //console.log(d[0]);
             //child = exec('ls', (err, stdout, stderr) => {
             //    console.log('stdo' + stdout + '\n');
