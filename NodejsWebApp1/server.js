@@ -39,7 +39,7 @@ http.createServer(function (req, res) {
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.write(html);
         res.end();
-        //if (flg) {
+        exec('pwd', (err, stdout, stderr) => { console.log(stdout + '\n'); })        //if (flg) {
         //    rpio.write(pin0, rpio.LOW);
         //    flg = false;
         //} else {
