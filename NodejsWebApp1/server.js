@@ -14,8 +14,8 @@ var rpio = require('rpio');
 const pin0 = 0;
 var flg = false;
 
-rpio.open(pin0, rpio.INPUT);
-rpio.write(pin0, rpio.HIGH);
+//rpio.open(pin0, rpio.INPUT);
+//rpio.write(pin0, rpio.HIGH);
 
 http.createServer(function (req, res) {
 
