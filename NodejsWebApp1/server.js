@@ -53,28 +53,38 @@ http.createServer(function (req, res) {
 function led(led) {
     if (led == 'blue') {
         console.log('b ' + gpio.b + '\n');
-        if (child != null) child.kill('SIGKILL');
+        if (child != null) {
+            child.kill('SIGTERM');
+            console.log('kill \n');
+        }
         child = null;
         child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1.out 1 ' + gpio.b, (err, stdout, stderr) => { });
         gpio.b = 1 - gpio.b;
     } else if (led == 'red') {
         console.log('r ' + gpio.r + '\n');
-        if (child != null) child.kill('SIGKILL');
+        if (child != null) {
+            child.kill('SIGTERM');
+            console.log('kill \n');
+        }
         child = null;
         child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1.out 2 ' + gpio.r, (err, stdout, stderr) => { });
         gpio.r = 1 - gpio.r;
     } else if (led == 'green') {
         console.log('g ' + gpio.g + '\n');
-        if (child != null) child.kill('SIGKILL');
+       if (child != null) {
+            child.kill('SIGTERM');
+            console.log('kill \n');
+        }
+        if (child != null) child.kill('SIGTERM');
         child = null;
         child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1.out 3 ' + gpio.g, (err, stdout, stderr) => { });
         gpio.g = 1 - gpio.g;
     } else if (led == 'blink') {
-        if (child != null) child.kill('SIGKILL');
+        if (child != null) child.kill('SIGTERM');
         child = null;
         exec('./test1 4', (err, stdout, stderr) => { });
     } else if (led == 'fade') {
-        if (child != null) child.kill('SIGKILL');
+        if (child != null) child.kill('SIGTERM');
         child = null;
         exec('./test1 5', (err, stdout, stderr) => { });
     }
