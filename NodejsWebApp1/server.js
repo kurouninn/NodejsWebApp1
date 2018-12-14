@@ -52,22 +52,22 @@ http.createServer(function (req, res) {
 
 function led(led) {
     if (led == 'blue') {
-        console.log('b\n');
+        console.log('b ' + gpio.b + '\n');
         if (child != null) child.kill('SIGKILL');
         child = null;
-        child = exec('./test1 1 ' + gpio.b, (err, stdout, stderr) => { });
+        child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1 1 ' + gpio.b, (err, stdout, stderr) => { });
         gpio.b = 1 - gpio.b;
     } else if (led == 'red') {
-        console.log('r\n');
+        console.log('r ' + gpio.r + '\n');
         if (child != null) child.kill('SIGKILL');
         child = null;
-        child = exec('./test1 2 ' + gpio.r, (err, stdout, stderr) => { });
+        child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1 2 ' + gpio.r, (err, stdout, stderr) => { });
         gpio.r = 1 - gpio.r;
     } else if (led == 'green') {
-        console.log('g\n');
+        console.log('g ' + gpio.g + \n');
         if (child != null) child.kill('SIGKILL');
         child = null;
-        child = exec('./test1 3 ' + gpio.g, (err, stdout, stderr) => { });
+        child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1 3 ' + gpio.g, (err, stdout, stderr) => { });
         gpio.g = 1 - gpio.g;
     } else if (led == 'blink') {
         if (child != null) child.kill('SIGKILL');
