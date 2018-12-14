@@ -58,7 +58,7 @@ function led(led) {
             console.log('kill \n');
         }
         child = null;
-        child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1.out 1 ' + gpio.b, (err, stdout, stderr) => { });
+        child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1.out 1 ' + gpio.b, (err, stdout, stderr) => { console.log('child exit \n'); });
         gpio.b = 1 - gpio.b;
     } else if (led == 'red') {
         console.log('r ' + gpio.r + '\n');
@@ -67,7 +67,7 @@ function led(led) {
             console.log('kill \n');
         }
         child = null;
-        child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1.out 2 ' + gpio.r, (err, stdout, stderr) => { });
+        child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1.out 2 ' + gpio.r, (err, stdout, stderr) => { console.log('child exit \n'); });
         gpio.r = 1 - gpio.r;
     } else if (led == 'green') {
         console.log('g ' + gpio.g + '\n');
@@ -77,7 +77,7 @@ function led(led) {
         }
         if (child != null) child.kill('SIGTERM');
         child = null;
-        child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1.out 3 ' + gpio.g, (err, stdout, stderr) => { });
+        child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1.out 3 ' + gpio.g, (err, stdout, stderr) => { console.log('child exit \n'); });
         gpio.g = 1 - gpio.g;
     } else if (led == 'blink') {
         if (child != null) child.kill('SIGTERM');
