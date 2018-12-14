@@ -5,7 +5,7 @@ var exec = require('child_process').exec;
 var child = null;
 var port = process.env.PORT || 1337;
 var html = null;
-var gpio = {r=0, g=0, b=0};
+var gpio = {r:0, g:0, b:0};
 
 html = fs.readFileSync('index.html', 'utf8');
 
