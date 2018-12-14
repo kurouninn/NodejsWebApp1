@@ -64,7 +64,7 @@ function led(led) {
         child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1 2 ' + gpio.r, (err, stdout, stderr) => { });
         gpio.r = 1 - gpio.r;
     } else if (led == 'green') {
-        console.log('g ' + gpio.g + \n');
+        console.log('g ' + gpio.g + '\n');
         if (child != null) child.kill('SIGKILL');
         child = null;
         child = exec('/home/pi/NodejsWebApp1/NodejsWebApp1/test1 3 ' + gpio.g, (err, stdout, stderr) => { });
