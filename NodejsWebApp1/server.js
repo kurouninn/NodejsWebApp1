@@ -22,7 +22,7 @@ http.createServer(function (req, res) {
             var data = '' + chunk;
             var d = data.split('=');
             console.log(d[0]);
-            if (d[0] == '1') {
+            if (d[0] == 'blue') {
                 gpio.setup(pin17, gpio.DIR_OUT, () => {
                     console.log('gpio on');
                     gpio.write(pin17, true);
