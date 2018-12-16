@@ -11,7 +11,7 @@ html = fs.readFileSync('index.html', 'utf8');
 
 var gpio = require('rpi-gpio');
 
-const pin17 = 17;
+const pin11 = 11;
 var flg = false;
 
 
@@ -23,15 +23,15 @@ http.createServer(function (req, res) {
             var d = data.split('=');
             console.log(d[0]);
             if (d[0] == 'blue') {
-                gpio.setup(pin17, gpio.DIR_OUT, () => {
+                gpio.setup(pin11, gpio.DIR_OUT, () => {
                     console.log('gpio on');
-                    gpio.write(pin17, true);
+                    gpio.write(pin11, true);
                     //gpio.end(pin17);
                 });
             } else {
-                gpio.setup(pin17, gpio.DIR_OUT, () => {
+                gpio.setup(pin11, gpio.DIR_OUT, () => {
                     console.log('gpio off');
-                    gpio.write(pin17, false);
+                    gpio.write(pin11, false);
                     //gpio.end(pin17);
                 });
            }
