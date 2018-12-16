@@ -44,65 +44,56 @@ process.on('SIGTERM', () => {
     reset();
 });
 
-//function seaftimer(led) {
-//    if (timeout[b])
-//        timeout[b] = setTimeout(() => {
-//            gpio_pin.b_on = 0;
-//            gpio.write(gpio_pin.b, gpio_pin.b_on);
-//            timeout[b] = null;
-//    }, 10000);
-//}
+server.on('request', function (req, res) {
+    if (req.method == 'POST') {
+        req.on('data', function (chunk) {
+            var data = '' + chunk;
+            var d = data.split('=');
+            console.log(d[0]);
+            if (d[0] == 'blue') {
+                onpin('b');
+            } else if (d[0] == 'red') {
+            } else if (d[0] == 'green') {
+            } else if (d[0] == 'blink') {
+                //console.log('blink ' + gpio_pin.g_on);
+                //var st = 0;
+                //reset();
 
-//server.on('request', function (req, res) {
-//    if (req.method == 'POST') {
-//        req.on('data', function (chunk) {
-//            var data = '' + chunk;
-//            var d = data.split('=');
-//            console.log(d[0]);
-//            if (d[0] == 'blue') {
-//                onpin('b');
-//            } else if (d[0] == 'red') {
-//            } else if (d[0] == 'green') {
-//            } else if (d[0] == 'blink') {
-//                //console.log('blink ' + gpio_pin.g_on);
-//                //var st = 0;
-//                //reset();
-
-//                //timerid = setInterval(() => {
-//                //    switch (st) {
-//                //        case 0:
-//                //            gpio.write(gpio_pin.b, 1);
-//                //            break;
-//                //        case 1:
-//                //            gpio.write(gpio_pin.b, 0);
-//                //            break;
-//                //        case 2:
-//                //            gpio.write(gpio_pin.r, 1);
-//                //            break;
-//                //        case 3:
-//                //            gpio.write(gpio_pin.r, 0);
-//                //            break;
-//                //        case 4:
-//                //            gpio.write(gpio_pin.g, 1);
-//                //            break;
-//                //        case 5:
-//                //            gpio.write(gpio_pin.g, 0);
-//                //            break;
-//                //    }
-//                //    st++;
-//                //    if (st > 5) st = 1;
-//                //}, 200);
-//            } else {
-//                console.log('off');
-//                reset();
-//            }
-//        });
-//    } else if (req.method == 'GET') {
-//        res.writeHead(200, { 'Content-Type': 'text/html' });
-//        res.write(html);
-//        res.end();
-//    }
-//}).listen(port);
+                //timerid = setInterval(() => {
+                //    switch (st) {
+                //        case 0:
+                //            gpio.write(gpio_pin.b, 1);
+                //            break;
+                //        case 1:
+                //            gpio.write(gpio_pin.b, 0);
+                //            break;
+                //        case 2:
+                //            gpio.write(gpio_pin.r, 1);
+                //            break;
+                //        case 3:
+                //            gpio.write(gpio_pin.r, 0);
+                //            break;
+                //        case 4:
+                //            gpio.write(gpio_pin.g, 1);
+                //            break;
+                //        case 5:
+                //            gpio.write(gpio_pin.g, 0);
+                //            break;
+                //    }
+                //    st++;
+                //    if (st > 5) st = 1;
+                //}, 200);
+            } else {
+                console.log('off');
+                reset();
+            }
+        });
+    } else if (req.method == 'GET') {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.write(html);
+        res.end();
+    }
+}).listen(port);
 
 function reset() {
     if (timerid != null) {
@@ -119,23 +110,22 @@ function resetpin(pin) {
         clearTimeout(pins[pin].timer);
         pins[pin].timer = null;
     }
-    gpio.write(pins[pin].pin, 0);
     pins[pin].on = 0;
-    pins[pin].timer = null;
+    gpio.write(pins[pin].pin, pins[pin].on);
 }
 
-//function onpin(pin) {
-//    pins[pin].on = 1 - pins[pin].on;
-//    if (pins[pin].on == 1) {
-//        gpio.write(pins[pin].pin, pins[pin].on);
-//        timeout[b] = setTimeout(() => {
-//            resetpin(pin);
-//        }, 10000);
-//    } else {
-//        resetpin(pin);
-//    }
-//    console.log(pin + ' pin ' + gpio_pin.b_on);
-//}
+function onpin(pin) {
+    pins[pin].on = 1 - pins[pin].on;
+    if (pins[pin].on == 1) {
+        gpio.write(pins[pin].pin, pins[pin].on);
+        timeout[b] = setTimeout(() => {
+            resetpin(pin);
+        }, 10000);
+    } else {
+        resetpin(pin);
+    }
+    console.log(pin + ' pin ' + gpio_pin.b_on);
+}
 
 //gpio.open(gpio_pin.b, gpio.OUTPUT);
 //gpio.open(gpio_pin.g, gpio.OUTPUT);
