@@ -9,9 +9,11 @@ html = fs.readFileSync('index.html', 'utf8');
 process.on('SIGTERM', () => {
     console.log('get SIGTERM.\n');
     reset();
+    exit(0);
 }).on('SIGINT', () => {
     console.log('get SIGINT.\n');
     reset();
+    exit(0);
 });
 
 var pins = {
@@ -65,63 +67,56 @@ server.on('request', function (req, res) {
                 timerid = setInterval(() => {
                     switch (st) {
                         case 0:
-                            onpin('b');
+                            onpin('b', false);
                             break;
                         case 1:
                             resetpin('b');
                             break;
                         case 2:
-                            onpin('r');
+                            onpin('r', false);
                             break;
                         case 3:
                             resetpin('r');
                             break;
                         case 4:
-                            onpin('g');
+                            onpin('g', false);
                             break;
                         case 5:
                             resetpin('g');
                             break;
                         case 6:
-                            onpin('b');
-                            onpin('r');
+                            onpin('b', false);
+                            onpin('r', false);
                             break;
                         case 7:
                             resetpin('b');
                             resetpin('r');
                             break;
                         case 8:
-                            onpin('b');
-                            onpin('g');
+                            onpin('b', false);
+                            onpin('g', false);
                             break;
                         case 9:
                             resetpin('b');
                             resetpin('g');
                             break;
                         case 10:
-                            onpin('r');
-                            onpin('g');
+                            onpin('r', false);
+                            onpin('g', false);
                             break;
                         case 11:
                             resetpin('r');
                             resetpin('g');
                             break;
                         case 12:
-                            onpin('b');
-                            onpin('r');
-                            onpin('g');
-                            break;
-                        case 13:
-                            resetpin('b');
-                            resetpin('r');
-                            resetpin('g');
+                            onpin('b', false);
+                            onpin('r', false);
+                            onpin('g', false);
                             break;
                         default:
-                            clearInterval(timerid);
-                            timerid = null;
+                            reset();
                     }
                     st++;
-                    if (st > 5) st = 1;
                 }, 1000);
             } else {
                 console.log('off');
@@ -154,12 +149,12 @@ function resetpin(pin) {
     gpio.write(pins[pin].pin, pins[pin].on);
 }
 
-function onpin(pin) {
+function onpin(pin,timer=true) {
     pins[pin].on = !pins[pin].on;
     if (pins[pin].on == 1) {
         console.log(pin + ' pin on');
         gpio.write(pins[pin].pin, pins[pin].on);
-        pins[pin].timer = setTimeout(() => { resetpin(pin); }, 10000);
+        if (timer == true) pins[pin].timer = setTimeout(() => { resetpin(pin); }, 10000);
     } else {
         console.log(pin + ' pin off');
         resetpin(pin);
