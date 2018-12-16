@@ -11,9 +11,9 @@ html = fs.readFileSync('index.html', 'utf8');
 
 var gpio_pin = { b: 11, r: 12, g: 13, b_on: false, r_on: false, g_on: false }
 var gpio = require('rpi-gpio');
-gpio.setup(gpio.pin.b, gpio.DIR_OUT, (err) => { console.log('b pin err ' + err + '\n'); });
-gpio.setup(gpio.pin.r, gpio.DIR_OUT, (err) => { console.log('r pin err ' + err + '\n'); });
-gpio.setup(gpio.pin.g, gpio.DIR_OUT, (err) => { console.log('g pin err ' + err + '\n'); });
+gpio.setup(gpio_pin.b, gpio.DIR_OUT, (err) => { console.log('b pin err ' + err + '\n'); });
+gpio.setup(gpio_pin.r, gpio.DIR_OUT, (err) => { console.log('r pin err ' + err + '\n'); });
+gpio.setup(gpio_pin.g, gpio.DIR_OUT, (err) => { console.log('g pin err ' + err + '\n'); });
 
 process.on('SIGTERM', () => {
     console.log('get SIGTERM.\n');
