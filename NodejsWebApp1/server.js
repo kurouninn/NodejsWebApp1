@@ -26,13 +26,13 @@ http.createServer(function (req, res) {
                 gpio.setup(pin11, gpio.DIR_OUT, () => {
                     console.log('gpio on');
                     gpio.write(pin11, true);
-                    //gpio.end(pin17);
+                    gpio.end(pin17);
                 });
             } else {
                 gpio.setup(pin11, gpio.DIR_OUT, () => {
                     console.log('gpio off');
                     gpio.write(pin11, false);
-                    //gpio.end(pin17);
+                    gpio.end(pin17);
                 });
            }
 
