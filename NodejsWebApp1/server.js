@@ -9,6 +9,9 @@ html = fs.readFileSync('index.html', 'utf8');
 process.on('SIGTERM', () => {
     console.log('get SIGTERM.\n');
     reset();
+}).on('SIGINT', () => {
+    console.log('get SIGINT.\n');
+    reset();
 });
 
 var pins = {
@@ -51,36 +54,75 @@ server.on('request', function (req, res) {
             if (d[0] == 'blue') {
                 onpin('b');
             } else if (d[0] == 'red') {
+                onpin('r');
             } else if (d[0] == 'green') {
+                onpin('g');
             } else if (d[0] == 'blink') {
-                //console.log('blink ' + gpio_pin.g_on);
-                //var st = 0;
-                //reset();
+                console.log('blink ' + gpio_pin.g_on);
+                var st = 0;
+                reset();
 
-                //timerid = setInterval(() => {
-                //    switch (st) {
-                //        case 0:
-                //            gpio.write(gpio_pin.b, 1);
-                //            break;
-                //        case 1:
-                //            gpio.write(gpio_pin.b, 0);
-                //            break;
-                //        case 2:
-                //            gpio.write(gpio_pin.r, 1);
-                //            break;
-                //        case 3:
-                //            gpio.write(gpio_pin.r, 0);
-                //            break;
-                //        case 4:
-                //            gpio.write(gpio_pin.g, 1);
-                //            break;
-                //        case 5:
-                //            gpio.write(gpio_pin.g, 0);
-                //            break;
-                //    }
-                //    st++;
-                //    if (st > 5) st = 1;
-                //}, 200);
+                timerid = setInterval(() => {
+                    switch (st) {
+                        case 0:
+                            onpin('b');
+                            break;
+                        case 1:
+                            resetpin('b');
+                            break;
+                        case 2:
+                            onpin('r');
+                            break;
+                        case 3:
+                            resetpin('r');
+                            break;
+                        case 4:
+                            onpin('g');
+                            break;
+                        case 5:
+                            resetpin('g');
+                            break;
+                        case 6:
+                            onpin('b');
+                            onpin('r');
+                            break;
+                        case 7:
+                            resetpin('b');
+                            resetpin('r');
+                            break;
+                        case 8:
+                            onpin('b');
+                            onpin('g');
+                            break;
+                        case 9:
+                            resetpin('b');
+                            resetpin('g');
+                            break;
+                        case 10:
+                            onpin('r');
+                            onpin('g');
+                            break;
+                        case 11:
+                            resetpin('r');
+                            resetpin('g');
+                            break;
+                        case 12:
+                            onpin('b');
+                            onpin('r');
+                            onpin('g');
+                            break;
+                        case 13:
+                            resetpin('b');
+                            resetpin('r');
+                            resetpin('g');
+                            break;
+                        default:
+                            clearInterval(timerid);
+                            timerid = null;
+                    }
+                    st++;
+                    if (st > 5) st = 1;
+                }, 1000);
             } else {
                 console.log('off');
                 reset();
