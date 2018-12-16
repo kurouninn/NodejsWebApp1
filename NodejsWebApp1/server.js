@@ -9,11 +9,11 @@ html = fs.readFileSync('index.html', 'utf8');
 process.on('SIGTERM', () => {
     console.log('get SIGTERM.\n');
     reset();
-    exit(0);
+    process.exit();
 }).on('SIGINT', () => {
     console.log('get SIGINT.\n');
     reset();
-    exit(0);
+    process.exit();
 });
 
 var pins = {
