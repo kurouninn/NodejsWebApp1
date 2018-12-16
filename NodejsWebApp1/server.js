@@ -130,7 +130,8 @@ server.on('request', function (req, res) {
                 reset();
             }
         });
-        res.redirect('./:80');
+        res.writeHead(302, { 'Location': 'http://localhost/:80' });
+        res.end();
     } else if (req.method == 'GET') {
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.write(html);
