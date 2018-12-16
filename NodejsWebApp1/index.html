@@ -5,24 +5,28 @@
     <script src="https://cdn.jsdelivr.net/hls.js/latest/hls.min.js"></script>
 </head>
 <body>
-    <div>
-        <video id="live" controls="controls" muted autoplay />
-    </div>
+    <!--
+                <div>
+            <video id="live" controls="controls" muted autoplay />
+        </div>
     <script>
-        if (Hls.isSupported()) {
-            var video = document.getElementById('live');
-            var hls = new Hls();
-            hls.loadSource('./live/output.m3u8');
-            hls.attachMedia(live);
-            hls.on(Hls.Events.MANIFEST_PARSED, function () {
-                video.play();
-            });
-        }
-    </script>
+                if (Hls.isSupported()) {
+                    var video = document.getElementById('live');
+                    var hls = new Hls();
+                    hls.loadSource('./live/output.m3u8');
+                    hls.attachMedia(live);
+                    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                        video.play();
+                    });
+                }
+            </script>
+        -->
     <form method="post" action="./">
         <button id="button1" name="blue" type="submit" value="1">blue</button>
         <button id="button2" name="red" type="submit" value="2">red</button>
         <button id="button3" name="green" type="submit" value="3">green</button>
+        <button id="button3" name="blink" type="submit" value="4">blink</button>
+        <button id="button3" name="off" type="submit" value="5">off</button>
     </form>
 </body>
 </html>
