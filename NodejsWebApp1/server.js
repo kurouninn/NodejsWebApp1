@@ -6,6 +6,10 @@ var html = null;
 
 html = fs.readFileSync('index.html', 'utf8');
 
+process.on('SIGTERM', () => {
+    console.log('get SIGTERM.\n');
+    reset();
+});
 
 var pins = {
     r: { pin: 13, on: false, timer: null },
@@ -37,12 +41,6 @@ gpio.setup(pins.b.pin, gpio.DIR_OUT, (err) => {
 var timerid = null;
 
 var server = http.createServer();
-server.listen(port);
-
-process.on('SIGTERM', () => {
-    console.log('get SIGTERM.\n');
-    reset();
-});
 
 server.on('request', function (req, res) {
     if (req.method == 'POST') {
