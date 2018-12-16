@@ -130,7 +130,7 @@ server.on('request', function (req, res) {
                 reset();
             }
         });
-        var url = req.headers.host.stlip(':');
+        var url = req.headers.host.split(':');
         res.writeHead(302, { 'Location': 'http://'+url[0]+':80' });
         res.end();
     } else if (req.method == 'GET') {
