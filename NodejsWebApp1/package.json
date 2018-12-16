@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "hls-server": "^1.5.0",
+    "node-media-server": "^1.4.8",
     "rpi-gpio": "^2.1.2"
   }
 }

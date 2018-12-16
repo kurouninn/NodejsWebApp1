@@ -161,12 +161,24 @@ function onpin(pin,timer=true) {
     }
 }
 
-var HLSServer = require('hls-server')
+const { NodeMediaServer } = require('node-media-server');
 
-var hls = new HLSServer(server, {
-    path: '/home/pi/NodejsWebApp1/NodejsWebApp1/live',
-    dir: '/home/pi/NodejsWebApp1/NodejsWebApp1/live'
-});
+const config = {
+    rtmp: {
+        port: 1935,
+        chunk_size: 60000,
+        gop_cache: true,
+        ping: 60,
+        ping_timeout: 30
+    },
+    //http: {
+    //    port: 8000,
+    //    allow_origin: '*'
+    //}
+};
+
+var nms = new NodeMediaServer(config)
+nms.run();
 
 server.listen(port);
 
