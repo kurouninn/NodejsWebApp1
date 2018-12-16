@@ -6,5 +6,7 @@
   "author": {
     "name": ""
   },
-  "dependencies": {}
+  "dependencies": {
+    "rpi-gpio": "^2.1.2"
+  }
 }
