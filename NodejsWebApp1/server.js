@@ -113,16 +113,15 @@ function resetpin(pin) {
 }
 
 function onpin(pin) {
-    pins[pin].on = 1 - pins[pin].on;
+    pins[pin].on = !pins[pin].on;
     if (pins[pin].on == 1) {
+        console.log(pin + ' pin on');
         gpio.write(pins[pin].pin, pins[pin].on);
-        timeout[b] = setTimeout(() => {
-            resetpin(pin);
-        }, 10000);
+        pins[pin].timer = setTimeout(() => { resetpin(pin); }, 10000);
     } else {
+        console.log(pin + ' pin off');
         resetpin(pin);
     }
-    console.log(pin + ' pin ' + gpio_pin.b_on);
 }
 
 //gpio.open(gpio_pin.b, gpio.OUTPUT);
