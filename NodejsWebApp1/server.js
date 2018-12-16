@@ -130,7 +130,7 @@ server.on('request', function (req, res) {
                 reset();
             }
         });
-        res.end();
+        res.redirect('./:80');
     } else if (req.method == 'GET') {
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.write(html);
