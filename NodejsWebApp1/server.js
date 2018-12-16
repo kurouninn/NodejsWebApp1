@@ -12,11 +12,9 @@ html = fs.readFileSync('index.html', 'utf8');
 
 var rpio = require('rpio');
 
-const pin0 = 0;
+const pin0 = 11;
 var flg = false;
 
-//rpio.open(pin0, rpio.INPUT);
-//rpio.write(pin0, rpio.HIGH);
 
 http.createServer(function (req, res) {
 
@@ -25,12 +23,15 @@ http.createServer(function (req, res) {
             var data = '' + chunk;
             var d = data.split('=');
             console.log(d[0]);
-            led(d[0]);
-            //console.log(d[0]);
-            //child = exec('ls', (err, stdout, stderr) => {
-            //    console.log('stdo' + stdout + '\n');
-            //    console.log('stde' + stderr + '\n');
-            //});
+            if (d[0] == '1') {
+                rpio.open(pin0, rpio.INPUT);
+                rpio.write(pin0, rpio.HIGH);
+                rpio.close(pin0);
+            } else {
+                rpio.open(pin0, rpio.INPUT);
+                rpio.write(pin0, rpio.LOW);
+                rpio.close(pin0);
+            }
 
             //rpio.write(pin0, rpio.HIGH);
             //rpio.write(pin0, rpio.LOW);
@@ -39,13 +40,6 @@ http.createServer(function (req, res) {
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.write(html);
         res.end();
-        exec('pwd', (err, stdout, stderr) => { console.log(stdout + '\n'); })        //if (flg) {
-        //    rpio.write(pin0, rpio.LOW);
-        //    flg = false;
-        //} else {
-        //    rpio.write(pin0, rpio.HIGH);
-        //    flg = true;
-        //}
     }
 
 }).listen(port);
