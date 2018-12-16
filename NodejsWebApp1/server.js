@@ -15,17 +15,17 @@ var pins = {
 
 var gpio = require('rpi-gpio');
 
-gpio.setup(pins[b].pin, gpio.DIR_OUT, (err) => {
+gpio.setup(pins.b.pin, gpio.DIR_OUT, (err) => {
     if (err) {
         console.log('pin b err : ' + err);
         return;
     }
-    gpio.setup(pins[r].pin, gpio.DIR_OUT, (err) => {
+    gpio.setup(pins.r.pin, gpio.DIR_OUT, (err) => {
         if (err) {
             console.log('pin r err : ' + err);
             return;
         }
-        gpio.setup(pins[g].pin, gpio.DIR_OUT, (err) => {
+        gpio.setup(pins.g.pin, gpio.DIR_OUT, (err) => {
             if (err) {
                 console.log('pin g err : ' + err);
                 return;
@@ -34,16 +34,15 @@ gpio.setup(pins[b].pin, gpio.DIR_OUT, (err) => {
     });
 });
 
-//var timerid = null;
+var timerid = null;
 
+var server = http.createServer();
+server.listen(port);
 
-//var server = http.createServer();
-//server.listen(port);
-
-//process.on('SIGTERM', () => {
-//    console.log('get SIGTERM.\n');
-//    reset();
-//});
+process.on('SIGTERM', () => {
+    console.log('get SIGTERM.\n');
+    reset();
+});
 
 //function seaftimer(led) {
 //    if (timeout[b])
@@ -105,25 +104,25 @@ gpio.setup(pins[b].pin, gpio.DIR_OUT, (err) => {
 //    }
 //}).listen(port);
 
-//function reset() {
-//    if (timerid != null) {
-//        clearInterval(timerid);
-//        timerid = null;
-//    }
-//    resetpin('r');
-//    resetpin('g');
-//    resetpin('b');
-//}
+function reset() {
+    if (timerid != null) {
+        clearInterval(timerid);
+        timerid = null;
+    }
+    resetpin('r');
+    resetpin('g');
+    resetpin('b');
+}
 
-//function resetpin(pin) {
-//    if (pins[pin].timer != null) {
-//        clearTimeout(pins[pin].timer);
-//        pins[pin].timer = null;
-//    }
-//    gpio.write(pins[pin].pin, 0);
-//    pins[pin].on = 0;
-//    pins[pin].timer = null;
-//}
+function resetpin(pin) {
+    if (pins[pin].timer != null) {
+        clearTimeout(pins[pin].timer);
+        pins[pin].timer = null;
+    }
+    gpio.write(pins[pin].pin, 0);
+    pins[pin].on = 0;
+    pins[pin].timer = null;
+}
 
 //function onpin(pin) {
 //    pins[pin].on = 1 - pins[pin].on;
