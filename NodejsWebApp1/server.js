@@ -168,9 +168,9 @@ var host = 'localhost'
 var port = '1935'
 var path = '/home/pi/NodejsWebApp1/NodejsWebApp1/live'
 
-function callback() { // do something when stream ends and encoding finshes }
 
-    fmpeg('rtmp://' + host + ':' + port + path, { timeout: 432000 }).addOptions([
+
+ffmpeg('rtmp://' + host + ':' + port + path, { timeout: 432000 }).addOptions([
         '-f v4l2 -r 30 -s  640x480 -vsync 1 -i /dev/video0 -c:v h264_omx -flags +cgop+global_header -bsf:v h264_mp4toannexb -f hls -hls_time 2 -hls_list_size 2 -hls_allow_cache 0 -hls_flags delete_segments'
         //'-c:v h264_omx',
         //'-c:a aac',
@@ -185,7 +185,7 @@ function callback() { // do something when stream ends and encoding finshes }
         //'-hls_list_size 6',
         //'-hls_wrap 10',
         //'-start_number 1'
-    ]).output('/home/pi/NodejsWebApp1/NodejsWebApp1/output.m3u8').on('end', callback).run()
+]).output('/home/pi/NodejsWebApp1/NodejsWebApp1/output.m3u8').on('end', callback).run()
 
 //gpio.open(gpio_pin.b, gpio.OUTPUT);
 //gpio.open(gpio_pin.g, gpio.OUTPUT);
