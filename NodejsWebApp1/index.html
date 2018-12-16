@@ -13,7 +13,7 @@
                 if (Hls.isSupported()) {
                     var video = document.getElementById('live');
                     var hls = new Hls();
-                    hls.loadSource('./live/output.m3u8');
+                    hls.loadSource('live/output.m3u8');
                     hls.attachMedia(live);
                     hls.on(Hls.Events.MANIFEST_PARSED, function () {
                         video.play();
