@@ -131,7 +131,8 @@ server.on('request', function (req, res) {
             }
         });
         var url = req.headers.host.split(':');
-        res.writeHead(302, { 'Location': 'http://'+url[0]+':80' });
+        //res.writeHead(302, { 'Location': 'http://' + url[0] + ':80' });
+        res.writeHead(204);
         res.end();
     } else if (req.method == 'GET') {
         res.writeHead(200, { 'Content-Type': 'text/html' });
