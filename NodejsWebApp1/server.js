@@ -12,17 +12,17 @@ var url = require('url');
 var path = require('path');
 var zlib = require('zlib');
 
-PORT = 8000;
+const PORT = 8000;
 
 http.createServer(function (req, res) {
     var uri = url.parse(req.url).pathname;
 
-    if (uri == '/player.html') {
+    if (uri == '/') {
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.write('<html><head><title>HLS Player fed by node.js' +
             '</title></head><body>');
         res.write('<video src="http://' + req.socket.localAddress +
-            ':' + PORT + '/out.M3U8" controls autoplay></body></html>');
+            ':' + PORT + '/live/index.m3u8" controls autoplay></body></html>');
         res.end();
         return;
     }
@@ -37,7 +37,7 @@ http.createServer(function (req, res) {
         } else {
             console.log('sending file: ' + filename);
             switch (path.extname(uri)) {
-                case '.M3U8':
+                case '.m3u8':
                     fs.readFile(filename, function (err, contents) {
                         if (err) {
                             res.writeHead(500);
