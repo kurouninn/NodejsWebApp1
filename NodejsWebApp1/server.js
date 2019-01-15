@@ -14,7 +14,7 @@ var html = null;
 var server = http.createServer();
 
 var hls = new hlsserver(server, {
-    path: '/home/pi/NodejsWebApp1/NodejsWebApp1',
+    path: '/',
     dir: 'live'
 })
 server.listen(1935);
