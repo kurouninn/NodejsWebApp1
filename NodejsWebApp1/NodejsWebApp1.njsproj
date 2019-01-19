@@ -13,7 +13,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>59e74944-9647-48e4-bbc9-c56eafad32f2</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>server.js</StartupFile>
+    <StartupFile>test.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -31,9 +31,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="server.js" />
+    <Compile Include="test.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Content Include="index.html" />
+    <Content Include="live\output.m3u8" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="live\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="live\live_00000.ts" />
+    <TypeScriptCompile Include="live\live_00001.ts" />
+    <TypeScriptCompile Include="live\live_00002.ts" />
+    <TypeScriptCompile Include="live\live_00003.ts" />
+    <TypeScriptCompile Include="live\live_00004.ts" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
