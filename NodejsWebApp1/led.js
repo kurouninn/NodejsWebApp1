@@ -1,30 +1,30 @@
-'use strict';
+﻿'use strict';
 
 var http = require('http');
-var port =  1337;
+var port = 1337;
 var server = http.createServer();
 
 var gpio = require('rpi-gpio');
 
 var pins = {
-    p11: { pin: 11, on: false, },
-    p12: { pin: 12, on: false, },
-    p13: { pin: 13, on: false, },
+    r: { pin: 13, on: false, timer: null },
+    g: { pin: 12, on: false, timer: null },
+    b: { pin: 11, on: false, timer: null }
 };
 
-gpio.setup(pins.p11.pin, gpio.DIR_OUT, (err) => {
+gpio.setup(pins.b.pin, gpio.DIR_OUT, (err) => {
     if (err) {
-        console.log('pin 11 err : ' + err);
+        console.log('pin b err : ' + err);
         return;
     }
-    gpio.setup(pins.p12.pin, gpio.DIR_OUT, (err) => {
+    gpio.setup(pins.r.pin, gpio.DIR_OUT, (err) => {
         if (err) {
-            console.log('pin 12 err : ' + err);
+            console.log('pin r err : ' + err);
             return;
         }
-        gpio.setup(pins.p13.pin, gpio.DIR_OUT, (err) => {
+        gpio.setup(pins.g.pin, gpio.DIR_OUT, (err) => {
             if (err) {
-                console.log('pin 13 err : ' + err);
+                console.log('pin g err : ' + err);
                 return;
             }
         });
@@ -37,12 +37,15 @@ server.on('request', function (req, res) {
             var data = '' + chunk;
             var d = data.split('=');
             console.log(d[0]);
-            if (d[0] == 'p11') {
-                onpin('p11');
-            } else if (d[0] == 'p12') {
-                onpin('p12');
-            } else if (d[0] == 'p13') {
-                onpin('p13');
+            if (d[0] == 'blue') {
+                onpin('b');
+            } else if (d[0] == 'red') {
+                onpin('r');
+            } else if (d[0] == 'green') {
+                onpin('g');
+            } else if (d[0] == 'blink') {
+                console.log('blink');
+                reset();
             } else {
                 console.log('off');
                 reset();
@@ -52,12 +55,17 @@ server.on('request', function (req, res) {
         res.writeHead(204);
         res.end();
     }
+    //} else if (req.method == 'GET') {
+    //    res.writeHead(200, { 'Content-Type': 'text/html' });
+    //    res.write(html);
+    //    res.end();
+    //}
 });
 
 function reset() {
-    resetpin('p11');
-    resetpin('p12');
-    resetpin('p13');
+    resetpin('r');
+    resetpin('g');
+    resetpin('b');
 }
 
 function resetpin(pin) {
@@ -65,7 +73,7 @@ function resetpin(pin) {
     gpio.write(pins[pin].pin, pins[pin].on);
 }
 
-function onpin(pin) {
+function onpin(pin, timer = true) {
     pins[pin].on = !pins[pin].on;
     if (pins[pin].on == 1) {
         console.log(pin + ' pin on');

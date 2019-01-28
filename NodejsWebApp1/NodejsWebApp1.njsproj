@@ -33,11 +33,17 @@
     <Compile Include="hls.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="led.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="server.js" />
     <Compile Include="test.js">
       <SubType>Code</SubType>
     </Compile>
     <Content Include="index.html" />
+    <Content Include="led.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="live\output.m3u8" />
     <Content Include="package.json" />
     <Content Include="README.md" />
