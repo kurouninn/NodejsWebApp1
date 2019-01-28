@@ -45,9 +45,7 @@ server.on('request', function (req, res) {
                 onpin('g');
             } else if (d[0] == 'blink') {
                 console.log('blink');
-                var st = 0;
                 reset();
-
             } else {
                 console.log('off');
                 reset();
