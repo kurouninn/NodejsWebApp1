@@ -64,20 +64,12 @@ server.on('request', function (req, res) {
 });
 
 function reset() {
-    if (timerid != null) {
-        clearInterval(timerid);
-        timerid = null;
-    }
     resetpin('r');
     resetpin('g');
     resetpin('b');
 }
 
 function resetpin(pin) {
-    if (pins[pin].timer != null) {
-        clearTimeout(pins[pin].timer);
-        pins[pin].timer = null;
-    }
     pins[pin].on = 0;
     gpio.write(pins[pin].pin, pins[pin].on);
 }
@@ -87,7 +79,6 @@ function onpin(pin,timer=true) {
     if (pins[pin].on == 1) {
         console.log(pin + ' pin on');
         gpio.write(pins[pin].pin, pins[pin].on);
-        if (timer == true) pins[pin].timer = setTimeout(() => { resetpin(pin); }, 10000);
     } else {
         console.log(pin + ' pin off');
         resetpin(pin);
